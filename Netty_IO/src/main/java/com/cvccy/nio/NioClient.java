@@ -102,5 +102,4 @@ public class NioClient {
             System.out.println("客户端收到信息：" + new String(buffer.array(), 0, len));
         }
     }
-
 }
