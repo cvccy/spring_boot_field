@@ -27,7 +27,7 @@ public class NIOServer {
         // 创建一个选择器selector
         Selector selector = Selector.open();
         // 把ServerSocketChannel注册到selector上，并且selector对客户端accept连接操作感兴趣
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);//虽然已经注册到了Selector中，但是没有客户端连接，处于未就绪状态，因此无法被select(); 注册信息会存放于Keys()中
 
         while (true) {
             System.out.println("等待事件发生。。");
@@ -36,12 +36,18 @@ public class NIOServer {
 
             System.out.println("有事件发生了。。");
             // 有客户端请求，被轮询监听到
-            Iterator<SelectionKey> it = selector.selectedKeys().iterator(); //每个channal注册到selector中都会与一个selectedKey绑定
+            Iterator<SelectionKey> it = selector.selectedKeys().iterator(); //每个channal注册到selector中都会与一个selectedKey绑定，这里只返回已准备好的channel
+            /**
+             * 移除了selectedKeys中的SelectionKey不代表移除了selector中的channel信息(这点很重要)，
+             * 注册过的channel信息会以SelectionKey的形式存储在selector.keys()中，
+             * 也就是说每次select()后的selectedKeys迭代器中是不能还有成员的，
+             * 但keys()中的成员是不会被删除的(以此来记录channel信息)。
+             */
             while (it.hasNext()) {
                 SelectionKey key = it.next();
                 //删除本次已处理的key，防止下次select重复处理
-                it.remove();
-                handle(key); //拿到key处理 //redis再这里用线程池，并发操作速度可能更快，但会有各种并发问题
+                it.remove();//Selector不会自己删除处理过的已就绪的某节点的selectionKey信息，需要删除，不然下次处理依旧存在
+                handle(key); //拿到key处理 //redis再这里若用线程池，并发操作速度可能更快，但会有各种并发问题
             }
         }
     }

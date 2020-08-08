@@ -1,0 +1,8 @@
+# Project exclude paths
+/distributed_zookeeper/target/
+
+/spring_boot_field.iml
+
+/.idea
+
+/*/*.iml

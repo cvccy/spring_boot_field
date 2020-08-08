@@ -15,8 +15,8 @@ public class NettyServer {
     public static void main(String[] args) throws Exception {
         //创建两个线程组bossGroup和workerGroup, 含有的子线程NioEventLoop的个数默认为cpu核数的两倍
         // bossGroup只是处理连接请求 ,真正的和客户端业务处理，会交给workerGroup完成
-        EventLoopGroup bossGroup = new NioEventLoopGroup(10);  //负责接收客户的连接
-        EventLoopGroup workerGroup = new NioEventLoopGroup(100000); //专门负责网络的读写
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);  //负责接收客户的连接
+        EventLoopGroup workerGroup = new NioEventLoopGroup(100); //专门负责网络的读写
         // NioEventLoopGroup --> NioEvenLoop --> Selector
         try {
             //创建服务器端的启动对象
