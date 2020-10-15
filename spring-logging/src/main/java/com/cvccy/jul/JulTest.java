@@ -4,6 +4,10 @@ import com.cvccy.log4j.Log4jTest;
 
 import java.util.logging.Logger;
 
+/**
+ * jul可已通过适配器，统一日志架构为log4j
+ *
+ */
 public class JulTest {
     public static void main(String[] args) {
 
