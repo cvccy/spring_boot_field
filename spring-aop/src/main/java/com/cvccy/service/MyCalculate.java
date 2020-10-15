@@ -1,11 +1,14 @@
 package com.cvccy.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author xhf
  * @version V1.0
  * @date 2020/9/26 8:46 上午
  * @description
  */
+@Service
 public class MyCalculate implements Calculate{
     @Override
     public int add(int a, int b) {

@@ -62,11 +62,11 @@ public class MyConfig {
      *
      * @return
      */
-    /*@Bean
+/*    @Bean
     public ProxyFactoryBean calculateProxy(){
         ProxyFactoryBean myService = new ProxyFactoryBean();
-        //myService.setInterceptorNames("myLogAdvice","myLogInterceptor"); //根据顺序执行
-        myService.setInterceptorNames("myLogAspect");
+        myService.setInterceptorNames("myLogAdvice","myLogInterceptor"); //根据顺序执行
+        //myService.setInterceptorNames("myLogAspect");
         myService.setTarget(myCalculate());
         return myService;
     }*/
@@ -101,7 +101,22 @@ public class MyConfig {
 
 
 
+    @Bean
+    public NameMatchMethodPointcutAdvisor myLogAspect(){
+        NameMatchMethodPointcutAdvisor advisor = new NameMatchMethodPointcutAdvisor();
+        advisor.setAdvice(myLogAdvice());
+        advisor.setMappedName("add");
+        return advisor;
+    }
 
+
+    @Bean
+    public BeanNameAutoProxyCreator calculateAutoProxy(){
+        BeanNameAutoProxyCreator creator = new BeanNameAutoProxyCreator();
+        creator.setBeanNames("my*");            //设置要创建道理的哪些Neam的名字
+        creator.setInterceptorNames("myLogInterceptor"); //设置连接拦截凉名字，有顺序
+        return creator;
+    }
 
 
 
