@@ -11,7 +11,7 @@ public class RabbitUtils {
         connectionFactory.setHost("cvccy.com");
         connectionFactory.setPort(5672);//5672是RabbitMQ的默认端口号
         connectionFactory.setUsername("cvccy");
-        connectionFactory.setPassword("******");
+        connectionFactory.setPassword("hf3|uVhf3|uVS9v@NaS9v@Na");
         connectionFactory.setVirtualHost("20201202");
     }
     public static Connection getConnection(){
