@@ -17,6 +17,7 @@ public class BiaDu {
         Connection connection = RabbitUtils.getConnection();
         final Channel channel = connection.createChannel();
         channel.queueDeclare(RabbitConstant.QUEUE_BAIDU, false, false, false, null);
+        //channel.exchangeDeclare(RabbitConstant.EXCHANGE_WEATHER_ROUTING,"direct",false,false,null);
         //queueBind用于将队列与交换机绑定
         //参数1：队列名 参数2：交互机名  参数三：路由key
         channel.queueBind(RabbitConstant.QUEUE_BAIDU, RabbitConstant.EXCHANGE_WEATHER_ROUTING, "china.hunan.changsha.20201127");

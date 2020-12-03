@@ -19,6 +19,7 @@ public class Sina {
         //获取虚拟连接
         final Channel channel = connection.createChannel();
         //声明队列信息
+        //channel.exchangeDeclare(RabbitConstant.EXCHANGE_WEATHER_ROUTING,"direct",true,false,null);
         channel.queueDeclare(RabbitConstant.QUEUE_SINA, false, false, false, null);
 
         //指定队列与交换机以及routing key之间的关系
